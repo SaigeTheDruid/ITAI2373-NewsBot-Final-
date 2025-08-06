@@ -1,0 +1,46 @@
+import os
+import pandas as pd
+import re
+import spacy
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+
+# Load spaCy model once
+nlp = spacy.load("en_core_web_sm")
+stop_words = set(stopwords.words('english'))
+lemmatizer = WordNetLemmatizer()
+
+def preprocess_text(text):
+    try:
+        text = str(text).lower()
+        text = re.sub(r'[^a-zA-Z\s]', '', text)
+        doc = nlp(text)
+        tokens = [token.text for token in doc if token.text not in stop_words and len(token.text) > 2]
+        lemmatized = [lemmatizer.lemmatize(token) for token in tokens]
+        return " ".join(lemmatized)
+    except Exception as e:
+        print(f"Error processing text: {e}")
+        return ""
+
+def preprocess_and_save(train_path='data/raw/BBC News Train.csv',
+                        save_path='data/processed/bbc_news_cleaned.csv'):
+    df = pd.read_csv(train_path)
+    print(f"Original data shape: {df.shape}")
+
+    # Clean missing and rename columns
+    df = df.dropna(subset=['Text', 'Category'])
+    df = df.rename(columns={'Text': 'content', 'Category': 'category'})
+    print(f"Data shape after dropping nulls: {df.shape}")
+
+    # Apply preprocessing
+    df['clean_content'] = df['content'].apply(preprocess_text)
+
+    # Create processed folder if not exists
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+    # Save cleaned data
+    df.to_csv(save_path, index=False)
+    print(f"Cleaned data saved to {save_path}")
+
+if __name__ == "__main__":
+    preprocess_and_save()
