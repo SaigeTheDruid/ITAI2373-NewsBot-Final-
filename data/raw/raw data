@@ -1,0 +1,24 @@
+import pandas as pd
+
+def load_raw_train():
+    path = 'data/raw/BBC News Train.csv'
+    df_train = pd.read_csv(path)
+    print(f"Loaded training data from {path}, shape: {df_train.shape}")
+    return df_train
+
+def load_raw_test():
+    path = 'data/raw/BBC News Test.csv'
+    df_test = pd.read_csv(path)
+    print(f"Loaded test data from {path}, shape: {df_test.shape}")
+    return df_test
+
+def load_sample_solution():
+    path = 'data/raw/BBC News Sample Solution.csv'
+    df_sample = pd.read_csv(path)
+    print(f"Loaded sample solution from {path}, shape: {df_sample.shape}")
+    return df_sample
+
+if __name__ == "__main__":
+    train_df = load_raw_train()
+    test_df = load_raw_test()
+    sample_df = load_sample_solution()
