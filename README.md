@@ -49,4 +49,27 @@ The system is built in Python using a structured and modular pipeline composed o
 - Query Handling: Classifies user intents from natural queries
 - Response Generation: Dynamically generates responses from processed content
 
+## Core Workflow
+
+1. **Load Raw News Articles**  
+   Dataset used: BBC News
+
+2. **Preprocess Text**  
+   Tokenization, lemmatization, lowercasing, punctuation removal
+
+3. **Classify Content**  
+   Predict article category using TF-IDF + SVM/Naive Bayes
+
+4. **Perform NLP Tasks**  
+   - Named Entity Recognition (spaCy)  
+   - Sentiment Analysis (TextBlob)  
+   - Topic Modeling (LDA, NMF)  
+   - Summarization (Sumy)  
+   - Text Generation (GPT-2)
+
+5. **Multilingual Handling**  
+   Detect non-English articles → Translate → Re-analyze
+
+6. **Interact via Query Interface**  
+   Respond to structured and free-form questions using a rule-based dialogue engine
 
