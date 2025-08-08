@@ -2,6 +2,7 @@
 
 Final Project – ITAI2373: Natural Language Processing  
 Name: Jai'Anni White
+
 Project Type: Solo Submission  
 Repository Name: ITAI2373-NewsBot-Final
 
